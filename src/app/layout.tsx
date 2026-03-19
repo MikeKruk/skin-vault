@@ -1,4 +1,5 @@
 import Providers from '@/components/providers/providers';
+import { siteConfig } from '@/config/site.config';
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
@@ -14,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-	title: 'Skin vault',
-	description: 'CS2 Stats & Market Hub',
+	title: siteConfig.title,
+	description: siteConfig.description,
 };
 
 export default function RootLayout({
