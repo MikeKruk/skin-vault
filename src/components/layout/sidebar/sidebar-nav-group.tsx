@@ -24,7 +24,7 @@ export default function SidebarNavGroup({
 	const { setOpenMobile } = useSidebar();
 	return (
 		<SidebarGroup>
-			<SidebarGroupLabel className='text-[10px] tracking-widest uppercase text-muted-foreground/40'>
+			<SidebarGroupLabel className='text-[10px] tracking-widest uppercase text-muted-foreground/50'>
 				{label}
 			</SidebarGroupLabel>
 			<SidebarMenu className='flex flex-col gap-2'>
@@ -34,15 +34,15 @@ export default function SidebarNavGroup({
 							className='
                 h-10 
                 text-[#32dbc7]/50
-                data-[active=true]:bg-[#00C9B1]/10
+                data-[active=true]:bg-primary-teal/10
                 data-[active=true]:border-[0.7px]
-                data-[active=true]:border-[#00C9B1]/50
-                data-[active=true]:text-[#00C9B1]
-                hover:bg-[#00C9B1]/10
-                hover:text-[#00C9B1]
+                data-[active=true]:border-primary-teal50
+                data-[active=true]:text-primary-teal
+                hover:bg-primary-teal/10
+                hover:text-primary-teal
                 hover:scale-105
                 active:bg-transparent
-                active:text-[#00C9B1]
+                active:text-primary-teal
                 '
 							asChild
 							isActive={pathname === item.href}

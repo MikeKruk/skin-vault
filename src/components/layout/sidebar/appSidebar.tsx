@@ -8,11 +8,13 @@ import {
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { siteConfig } from '@/config/site.config';
+import { signOut } from '@/features/auth/actions';
 import { sliceName } from '@/lib/string';
 import { ChevronsUpDown, LogOutIcon, UserIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
+
 import {
 	Sidebar,
 	SidebarContent,
@@ -31,6 +33,8 @@ const toolsLinks = siteConfig.navItems.filter(item => item.group === 'tools');
 const profileLink = siteConfig.navItems.find(item => item.group === 'footer');
 
 export default function AppSidebar() {
+	//Для тестов
+	const router = useRouter();
 	const pathName = usePathname();
 	const { setOpenMobile } = useSidebar();
 	return (
@@ -46,14 +50,16 @@ export default function AppSidebar() {
 					/>{' '}
 					<div>
 						<div className='text-sm font-bold text-white'>
-							skin<span className='text-[#00C9B1]'>vault</span>
+							skin<span className='text-primary-teal'>vault</span>
 						</div>
 						<div className='text-[9px] text-muted-foreground tracking-widest uppercase'>
 							CS2 Market
 						</div>
 					</div>
 				</SidebarHeader>
-				<SidebarSeparator className='m-0 bg-[#00C9B1]/50' />
+
+				<SidebarSeparator className='m-0 bg-primary-teal/50' />
+
 				<SidebarContent>
 					<nav aria-label='Main navigation'>
 						<SidebarNavGroup
@@ -61,7 +67,7 @@ export default function AppSidebar() {
 							items={menuLinks}
 							pathname={pathName}
 						/>
-						<SidebarSeparator className='m-0 bg-[#00C9B1]/50' />
+						<SidebarSeparator className='m-0 bg-primary-teal/50' />
 						<SidebarNavGroup
 							label='tools'
 							items={toolsLinks}
@@ -70,7 +76,7 @@ export default function AppSidebar() {
 					</nav>
 				</SidebarContent>
 
-				<SidebarSeparator className='m-0 bg-[#00C9B1]/50' />
+				<SidebarSeparator className='m-0 bg-primary-teal/50' />
 
 				<SidebarFooter>
 					<SidebarMenu>
@@ -85,15 +91,16 @@ export default function AppSidebar() {
                       h-15
                     bg-[#42978d]/10
                       border-[0.7px]
-                    border-[#00C9B1]/50
-                    hover:bg-[#00C9B1]/10     
+                      border-primary-teal/50
+                      hover:bg-primary-teal/10
+                      active:bg-primary-teal/30
                     '
 									>
 										<div className='flex flex-row gap-2'>
 											<Avatar>
 												{/* //TODO: add avatar src */}
 												<AvatarImage alt='avatar'></AvatarImage>
-												<AvatarFallback className='bg-transparent border border-[#00C9B1] text-[#00C9B1] text-xs'>
+												<AvatarFallback className='bg-transparent border border-primary-teal text-primary-teal text-xs'>
 													{sliceName('mikeixv')}
 												</AvatarFallback>
 											</Avatar>
@@ -109,7 +116,9 @@ export default function AppSidebar() {
 										<ChevronsUpDown className='size-4 text-muted-foreground' />
 									</SidebarMenuButton>
 								</DropdownMenuTrigger>
-								<DropdownMenuContent onCloseAutoFocus={e => e.preventDefault()}>
+								<DropdownMenuContent
+									onCloseAutoFocus={event => event.preventDefault()}
+								>
 									<DropdownMenuItem
 										asChild
 										onClick={() => setOpenMobile(false)}
@@ -121,7 +130,11 @@ export default function AppSidebar() {
 									<DropdownMenuSeparator />
 									<DropdownMenuItem
 										variant='destructive'
-										onClick={() => setOpenMobile(false)}
+										onClick={async () => {
+											setOpenMobile(false);
+											await signOut();
+											router.push('/sign-in');
+										}}
 									>
 										<LogOutIcon />
 										Log out
