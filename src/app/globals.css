@@ -13,6 +13,7 @@ body {
 body {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+	background-color: var(--background);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -30,10 +31,12 @@ body {
 	--popover-foreground: oklch(0.145 0 0);
 	--primary: oklch(0.205 0 0);
 	--primary-foreground: oklch(0.985 0 0);
+	--primary-teal: oklch(0.75 0.12 180);
 	--secondary: oklch(0.97 0 0);
 	--secondary-foreground: oklch(0.205 0 0);
 	--muted: oklch(0.97 0 0);
 	--muted-foreground: oklch(0.556 0 0);
+	--teal-muted: oklch(0.65 0.08 180 / 50%);
 	--accent: oklch(0.97 0 0);
 	--accent-foreground: oklch(0.205 0 0);
 	--destructive: oklch(0.577 0.245 27.325);
@@ -59,16 +62,18 @@ body {
 .dark {
 	--background: oklch(0.145 0 0);
 	--foreground: oklch(0.985 0 0);
-	--card: oklch(0.205 0 0);
+	--card: oklch(0.13 0.01 260);
 	--card-foreground: oklch(0.985 0 0);
 	--popover: oklch(0.205 0 0);
 	--popover-foreground: oklch(0.985 0 0);
 	--primary: oklch(0.922 0 0);
 	--primary-foreground: oklch(0.205 0 0);
+	--primary-teal: oklch(0.75 0.12 180);
 	--secondary: oklch(0.269 0 0);
 	--secondary-foreground: oklch(0.985 0 0);
 	--muted: oklch(0.269 0 0);
 	--muted-foreground: oklch(0.708 0 0);
+	--teal-muted: oklch(0.65 0.08 180 / 50%);
 	--accent: oklch(0.269 0 0);
 	--accent-foreground: oklch(0.985 0 0);
 	--destructive: oklch(0.704 0.191 22.216);
@@ -117,12 +122,14 @@ body {
 	--color-secondary: var(--secondary);
 	--color-primary-foreground: var(--primary-foreground);
 	--color-primary: var(--primary);
+	--color-primary-teal: var(--primary-teal);
 	--color-popover-foreground: var(--popover-foreground);
 	--color-popover: var(--popover);
 	--color-card-foreground: var(--card-foreground);
 	--color-card: var(--card);
 	--color-foreground: var(--foreground);
 	--color-background: var(--background);
+	--color-teal-muted: var(--teal-muted);
 	--radius-sm: calc(var(--radius) * 0.6);
 	--radius-md: calc(var(--radius) * 0.8);
 	--radius-lg: var(--radius);

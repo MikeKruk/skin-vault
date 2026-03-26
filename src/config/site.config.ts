@@ -9,7 +9,7 @@ import {
 	Users,
 } from 'lucide-react';
 
-export const HOME_ROUTE = '/' as const;
+export const HOME_ROUTE = '/dashboard' as const;
 const siteLinks = [
 	{
 		href: '/dashboard',
