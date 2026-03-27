@@ -11,8 +11,9 @@ import {
 import { Field, FieldError, FieldGroup } from '@/components/ui/field';
 import { FloatingLabelInput } from '@/components/ui/floating-label-input';
 import { Separator } from '@/components/ui/separator';
-import { signInWithEmail, signInWithGoogle } from '@/features/auth/actions';
 import { emailSchema, EmailSchema } from '@/features/auth/schemas';
+import signInWithEmail from '@/features/auth/sign-in-with-email';
+import signInWithGoogle from '@/features/auth/sign-in-with-google';
 import { cn } from '@/lib/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Image from 'next/image';

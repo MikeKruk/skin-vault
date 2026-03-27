@@ -8,7 +8,6 @@ import {
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { siteConfig } from '@/config/site.config';
-import { signOut } from '@/features/auth/actions';
 import { sliceName } from '@/lib/string';
 import { ChevronsUpDown, LogOutIcon, UserIcon } from 'lucide-react';
 import Image from 'next/image';
@@ -27,6 +26,7 @@ import {
 	useSidebar,
 } from '../../ui/sidebar';
 import SidebarNavGroup from './sidebar-nav-group';
+import signOut from '@/features/auth/sign-out';
 
 const menuLinks = siteConfig.navItems.filter(item => item.group === 'menu');
 const toolsLinks = siteConfig.navItems.filter(item => item.group === 'tools');
