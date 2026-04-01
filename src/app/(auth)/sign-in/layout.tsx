@@ -1,4 +1,4 @@
-import ParticlesBackground from '@/components/layout/sign-in/particles-background';
+import ParticlesBackground from '@/components/layout/sign-in/ParticlesBackground';
 import React from 'react';
 
 export const metadata = {
