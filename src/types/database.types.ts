@@ -16,24 +16,18 @@ export type Database = {
     Tables: {
       profiles: {
         Row: {
-          avatar_url: string | null
           created_at: string | null
           id: string
-          steam_id: string | null
           username: string | null
         }
         Insert: {
-          avatar_url?: string | null
           created_at?: string | null
           id: string
-          steam_id?: string | null
           username?: string | null
         }
         Update: {
-          avatar_url?: string | null
           created_at?: string | null
           id?: string
-          steam_id?: string | null
           username?: string | null
         }
         Relationships: []
@@ -65,6 +59,38 @@ export type Database = {
             foreignKeyName: "saved_players_user_id_fkey"
             columns: ["user_id"]
             isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      steam_profiles: {
+        Row: {
+          avatar_url: string | null
+          id: string
+          last_synced: string | null
+          nickname: string
+          steam_id: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          id: string
+          last_synced?: string | null
+          nickname: string
+          steam_id: string
+        }
+        Update: {
+          avatar_url?: string | null
+          id?: string
+          last_synced?: string | null
+          nickname?: string
+          steam_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "steam_profiles_id_fkey"
+            columns: ["id"]
+            isOneToOne: true
             referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
