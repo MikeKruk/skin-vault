@@ -11,9 +11,9 @@ import {
 import { Field, FieldError, FieldGroup } from '@/components/ui/field';
 import { FloatingLabelInput } from '@/components/ui/floating-label-input';
 import { Separator } from '@/components/ui/separator';
+import signInWithEmail from '@/features/auth/api/sign-in-with-email';
+import signInWithGoogle from '@/features/auth/api/sign-in-with-google';
 import { emailSchema, EmailSchema } from '@/features/auth/schemas';
-import signInWithEmail from '@/features/auth/sign-in-with-email';
-import signInWithGoogle from '@/features/auth/sign-in-with-google';
 import { cn } from '@/lib/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Image from 'next/image';
@@ -100,6 +100,7 @@ export default function SignInForm() {
 										aria-describedby={
 											fieldState.error ? 'email-error' : undefined
 										}
+                    aria-invalid={fieldState.invalid}
 										className={cn(
 											fieldState.error
 												? 'focus:border-destructive border-destructive'

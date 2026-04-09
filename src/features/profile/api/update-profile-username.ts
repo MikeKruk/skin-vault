@@ -1,28 +1,28 @@
 import getUser from '@/features/user/api/get-user';
 import { createClient } from '@/lib/supabase/client';
-import { ResultNullable } from '@/types/result';
+import { Result } from '@/types/result';
 import { Profile } from '@/types/tabels';
 
-export default async function getProfile(): Promise<ResultNullable<Profile>> {
+export default async function updateProfileUserName(
+	username: string
+): Promise<Result<Profile>> {
 	const supabase = createClient();
-	const { data: user, error: userError } = await getUser();
 
-	if (userError) {
-		return { data: null, error: userError };
-	}
+	const { data: user } = await getUser();
 
 	if (!user) {
-		return { data: null, error: null };
+		return { data: null, error: 'Unauthorized' };
 	}
 
 	const { data, error } = await supabase
 		.from('profiles')
-		.select('*')
+		.update({ username })
 		.eq('id', user.id)
-		.maybeSingle();
+		.select('*')
+		.single();
 
 	if (error) {
-		console.error('getProfile error:', error.message);
+		console.error('updateProfileUserName error:', error.message);
 		return { data: null, error: error.message };
 	}
 

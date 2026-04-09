@@ -17,7 +17,7 @@ export default function DashboardLayout({
 		<TooltipProvider>
 			<SidebarProvider>
 				<AppSidebar />
-				<SidebarInset>
+				<SidebarInset className='px-2 md:p-2 flex flex-col min-h-screen bg-background-content'>
 					<header className='flex h-14 items-center justify-end px-4 md:hidden'>
 						<SidebarTrigger />
 					</header>

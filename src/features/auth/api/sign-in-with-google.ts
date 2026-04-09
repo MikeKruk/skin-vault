@@ -1,5 +1,5 @@
 import { createClient } from '@/lib/supabase/client';
-import { Result } from './types';
+import { Result } from '@/types/result';
 
 export default async function signInWithGoogle(): Promise<Result<string>> {
 	const origin = process.env.NEXT_PUBLIC_SITE_URL;

@@ -1,5 +1,5 @@
 import { createClient } from '@/lib/supabase/client';
-import { Result } from './types';
+import { Result } from '@/types/result';
 
 export default async function signOut(): Promise<Result<true>> {
 	const supabase = createClient();

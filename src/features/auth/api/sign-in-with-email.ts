@@ -1,5 +1,6 @@
 import { createClient } from '@/lib/supabase/client';
-import { Result } from './types';
+import { Result } from '@/types/result';
+
 
 // Magic Link
 export default async function signInWithEmail({
