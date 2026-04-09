@@ -1,7 +1,8 @@
 import { createClient } from '@/lib/supabase/client';
+import { ResultNullable } from '@/types/result';
 import { User } from '@supabase/supabase-js';
 
-export default async function getUser(): Promise<User | null> {
+export default async function getUser(): Promise<ResultNullable<User>> {
 	const supabase = createClient();
 	const {
 		data: { user },
@@ -13,8 +14,8 @@ export default async function getUser(): Promise<User | null> {
 		if (error.message !== 'Auth session missing!') {
 			console.error('getUser error:', error.message);
 		}
-		return null;
+		return { data: null, error: error.message };
 	}
 
-	return user;
+	return { data: user, error: null };
 }

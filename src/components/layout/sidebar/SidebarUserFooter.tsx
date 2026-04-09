@@ -12,15 +12,19 @@ import {
 } from '@/components/ui/sidebar';
 import { Skeleton } from '@/components/ui/skeleton';
 import useProfile from '@/features/profile/hooks/use-profile';
+import useSteamProfile from '@/features/steam/hooks/use-steam-profile';
 import useUser from '@/features/user/hooks/use-user';
 import { sliceName } from '@/lib/string';
 import { ChevronsUpDown } from 'lucide-react';
-import SignInSection from './SignInSection';
-import SignOutSection from './SignOutSection';
+import SignInSection from '../../../features/auth/components/SignInSection';
+import SignOutSection from '../../../features/auth/components/SignOutSection';
 
 export default function SidebarUserFooter() {
 	const { data: profile, isLoading: isLoadingProfile } = useProfile();
-	const { isAuthenticated } = useUser();
+	const { data: user } = useUser();
+	const isAuthenticated = !!user;
+	const { data: steamProfile } = useSteamProfile();
+
 	return (
 		<SidebarFooter>
 			<SidebarMenu>
@@ -54,17 +58,21 @@ export default function SidebarUserFooter() {
 											<Avatar>
 												<AvatarImage
 													alt='avatar'
-													src={profile?.avatar_url ?? undefined}
+													src={steamProfile?.avatar_url ?? undefined}
 												></AvatarImage>
 												<AvatarFallback className='bg-transparent border border-primary-teal text-primary-teal text-xs'>
-													{sliceName(profile?.username ?? 'guest')}
+													{sliceName(
+														(steamProfile?.nickname || profile?.username) ??
+															'guest'
+													)}
 												</AvatarFallback>
 											</Avatar>
 
 											{/* имя и ранг */}
 											<div className='flex flex-col'>
 												<span className='text-xs font-semibold capitalize'>
-													{profile?.username ?? 'guest'}
+													{(steamProfile?.nickname || profile?.username) ??
+														'guest'}
 												</span>
 												<span className='text-[10px] text-muted-foreground'>
 													Gold Nova III

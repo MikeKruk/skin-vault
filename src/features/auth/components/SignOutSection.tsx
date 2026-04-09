@@ -4,17 +4,16 @@ import {
 	DropdownMenuSeparator,
 } from '@/components/ui/dropdown-menu';
 import { useSidebar } from '@/components/ui/sidebar';
-import { PROFILE_QUERY_KEY, USER_QUERY_KEY } from '@/constants/constants';
-import signOut from '@/features/auth/sign-out';
 import { getFooterLink } from '@/lib/navigation';
-import { getQueryClient } from '@/lib/tanstackquery/query-client';
 import { LogOutIcon, UserIcon } from 'lucide-react';
 import Link from 'next/link';
+import useSignOut from '../hooks/use-sign-out';
 
 const profileLink = getFooterLink();
 
 export default function SignOutSection() {
 	const { setOpenMobile } = useSidebar();
+	const signOutAction = useSignOut();
 	return (
 		<>
 			<DropdownMenuItem asChild onClick={() => setOpenMobile(false)}>
@@ -29,9 +28,7 @@ export default function SignOutSection() {
 				variant='destructive'
 				onClick={async () => {
 					setOpenMobile(false);
-					await signOut();
-					getQueryClient().invalidateQueries({ queryKey: [USER_QUERY_KEY] });
-					getQueryClient().invalidateQueries({ queryKey: [PROFILE_QUERY_KEY] });
+					await signOutAction();
 				}}
 			>
 				<LogOutIcon />
