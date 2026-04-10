@@ -6,9 +6,10 @@ import useUser from '@/features/user/hooks/use-user';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import useProfile from '../hooks/use-profile';
-import useProfileUpdate from '../hooks/use-profile-update';
-import { usernameSchema } from '../schemas';
+
+import useProfile from '../../hooks/use-profile';
+import useProfileUpdate from '../../hooks/use-profile-update';
+import { usernameSchema } from '../../schemas';
 import EmailInput from './EmailInput';
 import UsernameInput from './UsernameInput';
 import UsernameInputWithSteam from './UsernameInputWithSteam';
@@ -65,14 +66,16 @@ export default function ProfileHeader() {
 					)}
 				/>
 			)}
-			<Button
-				className='w-full bg-transparent'
-				variant={'teal'}
-				type='submit'
-				disabled={formState.isSubmitting || !formState.isDirty}
-			>
-				{formState.isSubmitting ? 'Saving...' : 'Save'}
-			</Button>
+			{!steamProfile && (
+				<Button
+					className='w-full bg-transparent'
+					variant={'teal'}
+					type='submit'
+					disabled={formState.isSubmitting || !formState.isDirty}
+				>
+					{formState.isSubmitting ? 'Saving...' : 'Save'}
+				</Button>
+			)}
 		</form>
 	);
 }

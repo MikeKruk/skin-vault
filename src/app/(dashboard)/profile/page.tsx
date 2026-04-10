@@ -1,4 +1,7 @@
-import ProfileHeader from '@/features/profile/components/ProfileHeader';
+import { Separator } from '@/components/ui/separator';
+import ProfileHeader from '@/features/profile/components/profile-section/ProfileHeader';
+import SteamSection from '@/features/steam/components/steam-section/SteamSection';
+
 import { createClient } from '@/lib/supabase/server';
 import Link from 'next/link';
 
@@ -28,9 +31,11 @@ export default async function Profile() {
 
 	return (
 		<div className='flex-1 flex items-center justify-center'>
-			<div className='w-full max-w-md'>
+			<div className='w-full max-w-md flex flex-col gap-4'>
 				<ProfileHeader />
-				<a href='/api/steam/connect'>Connect Steam</a>
+        <Separator />
+				<SteamSection />
+        <Separator />
 			</div>
 		</div>
 	);
