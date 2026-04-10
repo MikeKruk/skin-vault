@@ -1,7 +1,8 @@
 import { FloatingLabelInput } from '@/components/ui/floating-label-input';
 import { cn } from '@/lib/utils';
 import { ControllerFieldState, ControllerRenderProps } from 'react-hook-form';
-import { usernameSchema } from '../schemas';
+import { usernameSchema } from '../../schemas';
+
 
 interface UsernameInputProps {
 	field?: ControllerRenderProps<usernameSchema, 'username'>;

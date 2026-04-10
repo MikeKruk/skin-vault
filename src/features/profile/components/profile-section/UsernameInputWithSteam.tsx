@@ -33,7 +33,7 @@ export default function UsernameInputWithSteam({
 	) : (
 		<Tooltip>
 			<TooltipTrigger asChild>{userInputWithSteamProfile}</TooltipTrigger>
-			<TooltipContent>Nickname cannot be changed</TooltipContent>
+			<TooltipContent className='bg-popover text-popover-foreground border border-primary-teal/50'>Nickname cannot be changed</TooltipContent>
 		</Tooltip>
 	);
 }
