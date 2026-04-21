@@ -34,8 +34,8 @@ export default function ProfileHeader() {
 		});
 	}, [steamProfile?.nickname, profile?.username, reset]);
 
-	async function onSubmit(data: usernameSchema) {
-		await mutation.mutateAsync(data.username);
+	function onSubmit(data: usernameSchema) {
+		mutation.mutate(data.username);
 	}
 
 	return (

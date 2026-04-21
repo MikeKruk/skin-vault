@@ -8,7 +8,7 @@ export default function useProfile() {
 	return useQuery({
 		queryKey: [PROFILE_QUERY_KEY, user?.id],
 		queryFn: async () => {
-			const { data, error } = await getProfile(user?.id || '');
+			const { data, error } = await getProfile(user!.id);
 
 			if (error) {
 				throw new Error(error);
