@@ -8,7 +8,7 @@ export default function useSteamProfile() {
 	return useQuery({
 		queryKey: [STEAM_PROFILE_QUERY_KEY, user?.id],
 		queryFn: async () => {
-			const { data, error } = await getSteamProfile(user?.id || '');
+			const { data, error } = await getSteamProfile(user!.id);
 
 			if (error) {
 				throw new Error(error);

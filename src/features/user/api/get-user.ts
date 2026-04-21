@@ -10,10 +10,10 @@ export default async function getUser(): Promise<ResultNullable<User>> {
 	} = await supabase.auth.getUser();
 
 	if (error) {
-		//TODO: add logger
 		if (error.message !== 'Auth session missing!') {
-			console.error('getUser error:', error.message);
+			return { data: null, error: null };
 		}
+
 		return { data: null, error: error.message };
 	}
 
