@@ -44,7 +44,7 @@ export default function SidebarUserFooter() {
                       active:bg-primary-teal/30
                     '
 							>
-								<div className='flex flex-row gap-2'>
+								<div className='flex flex-row gap-2 min-w-0 overflow-hidden'>
 									{isLoadingProfile ? (
 										<>
 											<Skeleton className='h-8 w-8 rounded-full' />
@@ -68,9 +68,14 @@ export default function SidebarUserFooter() {
 												</AvatarFallback>
 											</Avatar>
 
-											{/* имя и ранг */}
-											<div className='flex flex-col'>
-												<span className='text-xs font-semibold capitalize'>
+											<div className='flex flex-col box-border'>
+												<span
+													className='text-xs font-semibold capitalize truncate box-border'
+													title={
+														(steamProfile?.nickname || profile?.username) ??
+														'guest'
+													}
+												>
 													{(steamProfile?.nickname || profile?.username) ??
 														'guest'}
 												</span>

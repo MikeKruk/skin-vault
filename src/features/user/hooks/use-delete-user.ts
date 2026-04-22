@@ -1,5 +1,6 @@
 import useClearCache from '@/hooks/use-clear-cache';
 import { useMutation } from '@tanstack/react-query';
+import { toast } from 'sonner';
 import deleteUser from '../server/delete-user';
 
 export default function useDeleteUser() {
@@ -14,6 +15,9 @@ export default function useDeleteUser() {
 		},
 		onSuccess: () => {
 			clearCache();
+			toast.success('Account deleted', {
+				description: 'Your account has been deleted.',
+			});
 		},
 	});
 }
