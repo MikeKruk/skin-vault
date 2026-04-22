@@ -9,6 +9,10 @@ export async function GET(request: Request) {
 		next = '/';
 	}
 
+  if(!code) {
+    return NextResponse.redirect(`${origin}/sign-in?error=auth-code-missing`);
+  }
+
 	if (code) {
 		const supabase = await createClient();
 		const { error } = await supabase.auth.exchangeCodeForSession(code);

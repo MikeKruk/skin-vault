@@ -15,13 +15,30 @@ import { HOME_ROUTE } from '@/config/site.config';
 import signInWithGoogle from '@/features/auth/api/sign-in-with-google';
 import { emailSchema, EmailSchema } from '@/features/auth/schemas';
 import { cn } from '@/lib/utils';
+import { GOOGLE_SIGN_IN_ERROR_MESSAGES } from '@/types/error-messages';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
+import { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 import useSignInWithEmail from '../hooks/use-sign-in-with-email';
 
 export default function SignInForm() {
+	const searchParams = useSearchParams();
+	const error = searchParams.get('error');
+
+	useEffect(() => {
+		if (error) {
+			const message =
+				GOOGLE_SIGN_IN_ERROR_MESSAGES[
+					error as keyof typeof GOOGLE_SIGN_IN_ERROR_MESSAGES
+				] ?? 'Something went wrong';
+			toast.error(message);
+		}
+	}, [error]);
+
 	const mutation = useSignInWithEmail();
 	const form = useForm<EmailSchema>({
 		resolver: zodResolver(emailSchema),

@@ -29,12 +29,12 @@ export default function RootLayout({
 		<html lang='en' suppressHydrationWarning>
 			<body className={`${geistSans.variable} ${geistMono.variable}`}>
 				<Providers>
-          {children}
           <Toaster richColors toastOptions={{
             style: {
               background: '#05070b',
             },
           }}/>
+          {children}
           </Providers>
 			</body>
 		</html>
