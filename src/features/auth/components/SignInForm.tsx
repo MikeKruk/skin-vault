@@ -11,15 +11,18 @@ import {
 import { Field, FieldError, FieldGroup } from '@/components/ui/field';
 import { FloatingLabelInput } from '@/components/ui/floating-label-input';
 import { Separator } from '@/components/ui/separator';
-import signInWithEmail from '@/features/auth/api/sign-in-with-email';
+import { HOME_ROUTE } from '@/config/site.config';
 import signInWithGoogle from '@/features/auth/api/sign-in-with-google';
 import { emailSchema, EmailSchema } from '@/features/auth/schemas';
 import { cn } from '@/lib/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Image from 'next/image';
+import Link from 'next/link';
 import { Controller, useForm } from 'react-hook-form';
+import useSignInWithEmail from '../hooks/use-sign-in-with-email';
 
 export default function SignInForm() {
+	const mutation = useSignInWithEmail();
 	const form = useForm<EmailSchema>({
 		resolver: zodResolver(emailSchema),
 		defaultValues: {
@@ -27,15 +30,22 @@ export default function SignInForm() {
 		},
 	});
 	async function onSubmit(data: EmailSchema) {
-		const result = await signInWithEmail({ email: data.email });
-		if (result.error) {
-			form.setError('email', { message: result.error });
+		try {
+			await mutation.mutateAsync(data.email);
+		} catch (error) {
+			form.setError('email', {
+				message: error instanceof Error ? error.message : 'Failed to sign in',
+			});
 		}
 	}
 	return (
 		<Card className='w-full sm:max-w-md ring-sidebar-border md:px-4'>
 			<CardHeader className='flex flex-col gap-4 md:gap-6'>
-				<div className='flex flex-row items-center gap-2'>
+				<Link
+					href={HOME_ROUTE}
+					aria-label='Go to homepage'
+					className='flex flex-row items-center gap-2'
+				>
 					<Image
 						src={'/logo.svg'}
 						width={50}
@@ -50,7 +60,7 @@ export default function SignInForm() {
 							CS2 Market
 						</div>
 					</div>
-				</div>
+				</Link>
 				<div className='flex flex-col gap-1'>
 					<h1 className='font-semibold text-lg'>Sign In</h1>
 					<CardDescription className='text-teal-muted'>
@@ -100,7 +110,7 @@ export default function SignInForm() {
 										aria-describedby={
 											fieldState.error ? 'email-error' : undefined
 										}
-                    aria-invalid={fieldState.invalid}
+										aria-invalid={fieldState.invalid}
 										className={cn(
 											fieldState.error
 												? 'focus:border-destructive border-destructive'

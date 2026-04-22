@@ -18,7 +18,6 @@ export default async function signInWithEmail({
 	});
 
 	if (error) {
-		console.error('signInWithEmail error', error);
 		return { data: null, error: error.message };
 	}
 	return { data: true, error: null };
