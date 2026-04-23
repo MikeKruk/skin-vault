@@ -3,13 +3,37 @@ import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { Skeleton } from '@/components/ui/skeleton';
 import useUser from '@/features/user/hooks/use-user';
+import { STEAM_SYNC_ERROR_MESSAGES } from '@/types/error-messages';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
+import { useEffect } from 'react';
+import { toast } from 'sonner';
 
 export default function ProfileGuard({
 	children,
 }: {
 	children: React.ReactNode;
 }) {
+	const searchParams = useSearchParams();
+	const error = searchParams.get('error');
+	const success = searchParams.get('success');
+
+	useEffect(() => {
+		if (error) {
+			const message =
+				STEAM_SYNC_ERROR_MESSAGES[
+					error as keyof typeof STEAM_SYNC_ERROR_MESSAGES
+				] ?? 'Something went wrong';
+			toast.error(message);
+		}
+	}, [error]);
+
+	useEffect(() => {
+		if (success) {
+			toast.success('Steam profile synced!');
+		}
+	}, [success]);
+
 	const { data: user, isLoading } = useUser();
 
 	if (isLoading) {
@@ -17,10 +41,10 @@ export default function ProfileGuard({
 			<div className='flex flex-col gap-4 justify-center items-center'>
 				<Skeleton className='text-center h-6 w-full' />
 				<Skeleton className='text-center h-6 w-full' />
-        <Separator />
+				<Separator />
 				<Skeleton className='text-center h-6 w-full' />
 				<Skeleton className='text-center h-6 w-90' />
-        <Separator />
+				<Separator />
 			</div>
 		);
 	}
@@ -29,9 +53,13 @@ export default function ProfileGuard({
 		return (
 			<div className='flex flex-col gap-4 justify-center items-center'>
 				<p className='text-center text-teal-muted w-full'>
-        You need to be signed in to access your profile
+					You need to be signed in to access your profile
 				</p>
-				<Button asChild className='max-w-xs w-full bg-transparent' variant={'teal'}>
+				<Button
+					asChild
+					className='max-w-xs w-full bg-transparent'
+					variant={'teal'}
+				>
 					<Link href={'/sign-in'}>Sign in</Link>
 				</Button>
 			</div>

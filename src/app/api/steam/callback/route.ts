@@ -87,5 +87,5 @@ export async function GET(request: Request) {
 		);
 	}
 
-	return NextResponse.redirect(`${origin}/profile`);
+	return NextResponse.redirect(`${origin}/profile?success=steam-profile-synced`);
 }
